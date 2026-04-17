@@ -1,0 +1,130 @@
+.product-list-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #6366f1;
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  background: white;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  &.out-of-stock {
+    opacity: 0.7;
+  }
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* ✅ Placeholder coloré quand pas d'image */
+.product-placeholder {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    opacity: 0.9;
+  }
+}
+
+.product-info {
+  padding: 16px;
+}
+
+.product-category {
+  font-size: 0.75rem;
+  color: #6366f1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product-name {
+  margin: 6px 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+/* ✅ Badge Rupture en rouge */
+.rupture-badge {
+  display: inline-block;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 10px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #4f46e5;
+  }
+}
+
+/* ✅ État vide (@empty) */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}

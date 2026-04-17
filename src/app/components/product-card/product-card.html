@@ -1,0 +1,69 @@
+<!-- product-card.component.html -->
+<article class="product-card">
+
+
+    <ng-template #placeholder>
+      <div class="product-card__placeholder">📦</div>
+    </ng-template>
+
+    <!-- Badge remise (DiscountPipe) — point 5 -->
+    <span
+      class="product-card__badge"
+      *ngIf="product.originalPrice && product.originalPrice > product.price"
+    >
+      {{ product.price | discount:product.originalPrice }}
+    </span>
+
+
+  <!-- Corps -->
+  <div class="product-card__body">
+
+    <!-- 1. Nom en uppercase -->
+    <h2 class="product-card__name">{{ product.name | uppercase }}</h2>
+
+    <!-- Description -->
+    <p class="product-card__description" *ngIf="product.description">
+      {{ product.description }}
+    </p>
+
+    <!-- 2 & 3. Prix + prix barré + remise percent -->
+    <div class="product-card__pricing">
+      <span class="product-card__price">
+        {{ product.price | currency:'EUR' }}
+      </span>
+
+      <!-- Prix d'origine barré + remise — point 3 -->
+      <ng-container *ngIf="product.originalPrice as origPrice">
+        <s class="product-card__original-price">
+          {{ origPrice | currency:'EUR' }}
+        </s>
+        <span class="product-card__discount">
+          <!-- pipe percent natif sur le ratio calculé dans le composant -->
+          -{{ discountRatio | percent:'1.0-0' }}
+        </span>
+      </ng-container>
+    </div>
+
+    <!-- 4. Stock (StockStatusPipe) -->
+    <div
+      class="product-card__stock"
+      [class.product-card__stock--ok]="product.stock > 10"
+      [class.product-card__stock--low]="product.stock >= 1 && product.stock <= 10"
+      [class.product-card__stock--out]="product.stock === 0"
+    >
+      {{ product.stock  }}
+    </div>
+
+  </div><!-- /.product-card__body -->
+
+  <!-- Pied -->
+  <div class="product-card__footer">
+    <button
+      class="product-card__btn"
+      [disabled]="product.stock === 0"
+    >
+      🛒 Ajouter au panier
+    </button>
+  </div>
+
+</article>

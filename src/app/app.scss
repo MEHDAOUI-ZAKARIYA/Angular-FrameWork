@@ -1,0 +1,73 @@
+// carte produit
+.product-card {
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+
+  .product-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    //border: 2px solid $primary-color;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .product-title {
+      font-size: 1.4rem;
+      color: #2c3e50;
+    }
+
+    .product-brand {
+      font-size: 0.9rem;
+      //color: $text-muted;
+      font-style: italic;
+    }
+
+    .product-desc {
+      font-size: 0.95rem;
+      //color: $text-color;
+    }
+
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .old-price {
+        text-decoration: line-through;
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+
+      .new-price {
+        //color: $primary-color;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+
+    .product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .tag {
+
+        color: white;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

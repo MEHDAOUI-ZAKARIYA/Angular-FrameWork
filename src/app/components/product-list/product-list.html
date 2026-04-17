@@ -1,0 +1,69 @@
+<div class="product-grid">
+
+  @for (product of products; track product.id) {
+
+    <!-- ✅ Point 3 : clic sur la carte entière → productSelected -->
+    <div class="product-card"
+         [class.selected]="product.id === selectedId"
+         [class.out-of-stock]="getStockStatus(product.stock) === StockStatus.RUPTURE"
+         (click)="onCardClick(product)">
+
+      @if (product.imageUrl) {
+        <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+      } @else {
+        <div class="product-placeholder"
+             [style.backgroundColor]="getPlaceholderColor(product.id)">
+          <span>{{ product.name[0] }}</span>
+        </div>
+      }
+
+      @if (product.originalPrice) {
+        <span class="promo-badge">Promo</span>
+      }
+
+      <div class="product-info">
+        <span class="product-category">{{ product.category }}</span>
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-brand">{{ product.brand }}</p>
+
+        <div class="price-row">
+          <span class="product-price">{{ product.price | currency:'EUR':'symbol':'1.0-0' }}</span>
+          @if (product.originalPrice) {
+            <span class="original-price">
+              {{ product.originalPrice | currency:'EUR':'symbol':'1.0-0' }}
+            </span>
+          }
+        </div>
+
+        <div class="rating-row">
+          <span class="stars">{{ getStars(product.rating) }}</span>
+          <span class="review-count">({{ product.reviewCount }})</span>
+        </div>
+
+        @if (getStockStatus(product.stock) === StockStatus.RUPTURE) {
+          <span class="badge badge--rupture">Rupture de stock</span>
+
+        } @else if (getStockStatus(product.stock) === StockStatus.STOCK_LIMITE) {
+          <span class="badge badge--limite">Stock limité — {{ product.stock }} restants</span>
+          <!-- ✅ Point 4 : stopPropagation via onAddToCart -->
+          <button class="add-btn" (click)="onAddToCart($event, product)">
+            Ajouter au panier
+          </button>
+
+        } @else {
+          <span class="badge badge--stock">En stock</span>
+          <button class="add-btn" (click)="onAddToCart($event, product)">
+            Ajouter au panier
+          </button>
+        }
+
+      </div>
+    </div>
+
+  } @empty {
+    <div class="empty-state">
+      <p>Aucun produit correspond à votre recherche.</p>
+    </div>
+  }
+
+</div>

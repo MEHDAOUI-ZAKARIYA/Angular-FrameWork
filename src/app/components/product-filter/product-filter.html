@@ -1,0 +1,87 @@
+<!-- product-filter.component.html -->
+<div class="filter-card">
+  <h2 class="filter-title">🔍 Filtrer les produits</h2>
+
+  <!-- ── 2. Champ texte lié à searchText ─────────────────────────────────── -->
+  <div class="field-group">
+    <label for="search">Recherche</label>
+    <input
+      id="search"
+      type="text"
+      placeholder="Nom du produit…"
+      [(ngModel)]="searchText"
+      [style.borderColor]="searchText ? '#22c55e' : '#d1d5db'"
+      class="input-text"
+    />
+    <!-- ── 6. Indicateur visuel "champ actif" ──────────────────────────── -->
+    <span class="hint" [class.hint--active]="searchText">
+      {{ searchText ? '✓ Filtre actif' : 'Saisissez un mot-clé' }}
+    </span>
+  </div>
+
+  <!-- ── 3. Select lié à selectedCategory ────────────────────────────────── -->
+  <div class="field-group">
+    <label for="category">Catégorie</label>
+    <select id="category" [(ngModel)]="selectedCategory" class="input-select">
+      <option value="toutes">— Toutes —</option>
+      <option *ngFor="let cat of categories" [value]="cat">
+        {{ cat | titlecase }}
+      </option>
+    </select>
+  </div>
+
+  <!-- ── 4 & 5. Range lié à maxPrice + affichage currency en temps réel ─── -->
+  <div class="field-group">
+    <label for="price">
+      Prix maximum :
+      <!-- 5. Pipe currency en temps réel -->
+      <strong class="price-display">
+        {{ maxPrice === 0 ? 'Illimité' : (maxPrice | currency:'EUR':'symbol':'1.0-0') }}
+      </strong>
+    </label>
+    <input
+      id="price"
+      type="range"
+      [(ngModel)]="maxPrice"
+      min="0"
+      max="2000"
+      step="50"
+      class="input-range"
+    />
+    <div class="range-bounds">
+      <span>0 €</span>
+      <span>2 000 €</span>
+    </div>
+  </div>
+
+  <!-- ── 7. Bouton Réinitialiser (event binding) ──────────────────────────── -->
+  <!-- ── 8. Bouton Filtrer désactivé si tous les critères sont par défaut ─── -->
+  <div class="actions">
+    <button
+      type="button"
+      class="btn btn--reset"
+      (click)="onReset()"
+    >
+      ↺ Réinitialiser
+    </button>
+
+    <button
+      type="button"
+      class="btn btn--filter"
+      [disabled]="isFilterDisabled"
+      (click)="onFilter()"
+    >
+      Filtrer
+    </button>
+  </div>
+
+  <!-- Résumé des filtres actifs -->
+  <div class="summary" *ngIf="!isFilterDisabled">
+    <p>Filtres actifs :</p>
+    <ul>
+      <li *ngIf="searchText">Texte : <em>{{ searchText }}</em></li>
+      <li *ngIf="selectedCategory !== 'toutes'">Catégorie : <em>{{ selectedCategory | titlecase }}</em></li>
+      <li *ngIf="maxPrice > 0">Prix max : <em>{{ maxPrice | currency:'EUR':'symbol':'1.0-0' }}</em></li>
+    </ul>
+  </div>
+</div>
